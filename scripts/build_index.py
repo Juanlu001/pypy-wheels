@@ -1,3 +1,5 @@
+from __future__ import print_function
+from builtins import object
 import sys
 import py
 
@@ -15,7 +17,7 @@ class IndexBuilder(object):
 
     def copy_wheels(self):
         for whl in self.wheeldir.visit('*.whl'):
-            print 'Collecting wheel:', whl.basename
+            print('Collecting wheel:', whl.basename)
             name, version = self.parse(whl)
             self.packages.add(name)
             d = self.outdir.join(name).ensure(dir=True)
@@ -23,16 +25,16 @@ class IndexBuilder(object):
             if dst.check(file=False):
                 whl.copy(d)
             else:
-                print '    already exists, skipping'
+                print('    already exists, skipping')
 
     def build_index(self):
-        print 'Building index files...'
+        print('Building index files...')
         self._write_index(self.outdir, 'PyPy Wheel Index', self.packages)
         for pkg in self.packages:
             d = self.outdir.join(pkg)
             wheels = [whl.basename for whl in d.listdir('*.whl')]
             self._write_index(d, 'Links for %s' % pkg, wheels)
-        print 'OK'
+        print('OK')
 
     def _write_index(self, d, title, links):
         lines = [

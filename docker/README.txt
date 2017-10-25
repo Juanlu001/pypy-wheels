@@ -1,3 +1,5 @@
+~~ OLD README ~~
+
 There are two docker images:
 
 - antocuni/pypy-wheels-base is built from the `base` directory: it's based on
